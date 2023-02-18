@@ -125,6 +125,37 @@ namespace windowing
 		EndPaint(get_handle(), &ps);
 	}
 
+	//THIS IS WHERE THE PROBLEMATIC CODE IS
+	void main_window::on_lbuttonup(uint16_t, uint16_t, uint16_t)
+	{
+		auto fop = winrt::Windows::Storage::Pickers::FileOpenPicker();
+
+		fop.FileTypeFilter().Append(L".txt");
+		fop.SuggestedStartLocation(winrt::Windows::Storage::Pickers::PickerLocationId::DocumentsLibrary);
+
+		auto iww = fop.as<IInitializeWithWindow>();
+		//THIS LINE FAILS WITH AN ACCESS DENIED ERROR
+		HRESULT hr = iww->Initialize(get_handle());
+
+		if (FAILED(hr))
+		{
+			THROW_IF_FAILED(hr);
+		}
+		else
+		{
+			wil::unique_event wait_event;
+			wait_event.reset(CreateEventW(nullptr, TRUE, FALSE, nullptr));
+
+			auto open_result = fop.PickSingleFileAsync();
+			open_result.Completed([we = wait_event.get()](const winrt::Windows::Foundation::IAsyncOperation<winrt::Windows::Storage::StorageFile> &, const winrt::Windows::Foundation::AsyncStatus &)
+				{
+					SetEvent(we);
+				});
+
+			wait_event.wait();
+		}
+	}
+
 	void main_window::on_activate(uint16_t, uint16_t, HWND)
 	{
 	}
@@ -168,31 +199,7 @@ namespace windowing
 		}
 		case WM_LBUTTONUP:
 		{
-			auto fop = winrt::Windows::Storage::Pickers::FileOpenPicker();
-
-			fop.FileTypeFilter().Append(L".txt");
-			fop.SuggestedStartLocation(winrt::Windows::Storage::Pickers::PickerLocationId::DocumentsLibrary);
-
-			auto iww = fop.as<IInitializeWithWindow>();
-			HRESULT hr = iww->Initialize(get_handle());
-
-			if (FAILED(hr))
-			{
-				THROW_IF_FAILED(hr);
-			}
-			else
-			{
-				wil::unique_event wait_event;
-				wait_event.reset(CreateEventW(nullptr, TRUE, FALSE, nullptr));
-
-				auto open_result = fop.PickSingleFileAsync();
-				open_result.Completed([we = wait_event.get()](const winrt::Windows::Foundation::IAsyncOperation<winrt::Windows::Storage::StorageFile> &, const winrt::Windows::Foundation::AsyncStatus &)
-					{
-						SetEvent(we);
-					});
-
-				wait_event.wait();
-			}
+			on_lbuttonup(static_cast<uint16_t>(wparam), static_cast<uint16_t>(LOWORD(lparam)), static_cast<uint16_t>(HIWORD(lparam)));
 			return 0;
 		}
 		default:

@@ -7,7 +7,7 @@
   xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
   IgnorableNamespaces="uap">
 
-  <Identity Name="WindowTest" Publisher="CN=Darran, O=Untrusted Software, S=Neath, C=GB" Version="1.0.0.0" />
+  <Identity Name="WindowTest" Publisher="CN=TestCert" Version="1.0.0.0" />
   <mp:PhoneIdentity PhoneProductId="1e608192-c5fc-48a3-aee3-95e9e5eb66da" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
   <Properties>
     <DisplayName>WindowTest</DisplayName>

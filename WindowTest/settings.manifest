@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <assembly manifestVersion="1.0" xmlns="urn:schemas-microsoft-com:asm.v1">
   <assemblyIdentity version="1.0.0.0" name="WindowTest.app"/>
-
-  <file name="WindowTest.exe">
-    <activatableClass name="WindowSupport.UI.Input.Private.PointerPrivate" threadingModel="both" xmlns="urn:schemas-microsoft-com:winrt.v1" />
-  </file>
     
   <compatibility xmlns="urn:schemas-microsoft-com:compatibility.v1">
     <application>

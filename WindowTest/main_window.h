@@ -28,6 +28,7 @@ namespace windowing
 		void on_size(uint32_t, uint16_t, uint16_t);
 		void on_activate(uint16_t, uint16_t, HWND);
 		void on_paint();
+		void on_lbuttonup(uint16_t, uint16_t, uint16_t);
 
 		LRESULT message_handler(UINT, WPARAM, LPARAM);
 

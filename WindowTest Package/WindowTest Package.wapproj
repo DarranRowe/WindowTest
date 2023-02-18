@@ -43,7 +43,8 @@
     <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
     <NoWarn>$(NoWarn);NU1702</NoWarn>
     <EntryPointProjectUniqueName>..\WindowTest\WindowTest.vcxproj</EntryPointProjectUniqueName>
-    <PackageCertificateThumbprint>D1D80FE4C176D7CFF9C8CA12009742DCEDD8A9A5</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>EE3021357820189DAFC59A05B9E282F4667315B4</PackageCertificateThumbprint>
+    <PackageCertificateKeyFile>Certs\TestCert.pfx</PackageCertificateKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -51,6 +52,7 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Certs\TestCert.pfx" />
     <Content Include="Images\SplashScreen.scale-200.png" />
     <Content Include="Images\LockScreenLogo.scale-200.png" />
     <Content Include="Images\Square150x150Logo.scale-200.png" />
@@ -58,7 +60,6 @@
     <Content Include="Images\Square44x44Logo.targetsize-24_altform-unplated.png" />
     <Content Include="Images\StoreLogo.png" />
     <Content Include="Images\Wide310x150Logo.scale-200.png" />
-    <PRIResource Include="Resources.resw" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WindowTest\WindowTest.vcxproj">
